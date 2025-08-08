@@ -1,0 +1,848 @@
+麻雀用、収支計算アプリを作って
+スマホ対応　横長の画面
+使用コードは、html,css,javascript
+
+「トップ画面」　
+タイトル「麻雀用、収支計算」と表示
+「新規」と「過去」のボタンがあり、
+「新規」を押すと「新規画面」に移行
+「過去」を押すと「過去画面」に移行
+
+「新規画面」
+
+上部に「三人打」、「四人打」「トップへ戻る」のボタンがある。
+
+「トップへ戻る」を押すと「トップ画面」に戻る。
+
+選択したら色が変化して、入力できる表が出現する。
+　「三人打」の場合、出てくる表の列が４列まで、名前を記入するテキストボックスが３人までになる。
+　「四人打」の場合、出てくる表の列が5列まで、名前を記入するテキストボックスが4人までになる。
+
+１つの表になっていて、表の上部にボタンが４つ。
+１つめ：「日付欄」　今日の日付が自動で記入される。日付横にデフォルトで「１ページ目」が表示される。
+２つめ：その横にページ移動の「矢印」ボタンがある。左右の矢印ボタンを押すと、ページを移動できる。
+　※デフォルトで４ページまでできている。
+３つめ：その横に「収支合計」ボタンがあり、押すと全ページの合計をまとめた「収支合計」ページが表示される。
+４つめ：その横に「保存」ボタンがあり、押すと記録され「過去画面」に追加される。
+
+ボタンの下の表は
+「三人打」の場合、6行、5列の表（セル）、
+「四人打」の場合、6行、6列の表（セル）
+が出現する。
+
+※以下「三人打」の例、「四人打」は、6列目まである。
+1行目　１列目に「お名前」、２列目から４列目まで、名前記入の欄　（２ページから４ページまではすべて自動入力される）
+2行目　１列目に「１半荘」、２列目から４列目まで、空欄+星マークのリスト欄（あとで点数を記入）、5列目に「チェック」ボタン
+3行目　１列目に「２半荘」、２列目から４列目まで、空欄+星マークのリスト欄（あとで点数を記入）、5列目に「チェック」ボタン
+4行目　１列目に「３半荘」、２列目から４列目まで、空欄+星マークのリスト欄（あとで点数を記入）、5列目に「チェック」ボタン
+5行目　１列目に「４半荘」、２列目から４列目まで、空欄+星マークのリスト欄（あとで点数を記入）、5列目に「チェック」ボタン
+（点数は+（青文字）と-（赤文字）があり、「チェック」ボタンを押したら、その行の合計が「0」なら、アラートで「OK」表示
+「0」以外ならその行がピンクの背景になりアラート出現）
+アラート「合ってないわよ！」
+
+※星マークのリスト欄は、数字を入れる空欄を分ける形で左側に小さくセルを設けて、押すとリスト表示で「”☆”、”×”、""」を選べるようにする。
+　この星マークは役満が出た時のご祝儀ボーナスで、”☆”は１つにつき合計時に+100、”×”は合計時に-50を加算する。
+
+
+６行目　１列目に「点数合計」、２列目から5列目まで、列ごとの「合計点数」を自動で表示
+
+
+「収支合計」ページ
+「収支合計」ページは、表になっていて、表の上部にボタンが2つ。
+１：「矢印」ボタン。左右の矢印ボタンを押すと、ページを移動できる。
+２：「トップへ戻る」ボタン。押すとトップ画面に戻る。
+
+1行目　１列目に「お名前」、２列目から4列目まで、名前が自動表示
+2行目　１列目に「1ページ目」、２列目から4列目まで、「1ページ目」の各合計点数を自動表示
+3行目　１列目に「2ページ目」、２列目から4列目まで、「2ページ目」の各合計点数を自動表示
+4行目　１列目に「3ページ目」、２列目から4列目まで、「3ページ目」の各合計点数を自動表示
+5行目　１列目に「4ページ目」、２列目から4列目まで、「4ページ目」の各合計点数を自動表示
+
+少し間を空けて、太い罫線の6行目が以下。
+6行目　１列目に「総合計収支」、２列目から4列目まで、縦の数字の合計点数を自動表示（太文字）
+
+
+背景はどの画面も(f0fac8)
+表：全体を角Rでドロップシャドウ付の四角の中に表示、バックの色は(#dca488)
+表自体は白バックで黒線、基本は黒文字
+
+ボタン全般：、全て角R(5px)ドロップシャドウ付
+細長い、バックの色は(#dca488)、縁は黒、文字は黒、薄いドロップシャドウ付
+「三人打」、「四人打」は、横並び、サイズ指定（W:300px H:100px)
+「トップへ戻る」は、その下、サイズ指定（W:100px H:50px)
+
+点数表示：プラス数字のセルは青バックで黄色文字、マイナス数字のセルは赤バックで白文字、文字には薄いドロップシャドウ付
+
+
+よろしく
+
+
+―－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+/mahjong-appr/
+
+├── index.html
+├── manifest.json
+├── service-worker.js
+├── icon/
+│   ├── icon-192.png
+│   └── icon-512.png
+
+
+
+―－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+index.html
+
+―－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麻雀用収支計算</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #336633;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            min-width: 800px;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .button {
+            background-color: #CCCCCC;
+            border: 2px solid #000;
+            border-radius: 5px;
+            color: #000;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+            transition: all 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .button:active {
+            transform: translateY(0);
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .main-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .main-button {
+            width: 200px;
+            height: 80px;
+            font-size: 20px;
+        }
+
+        .game-type-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .game-type-button {
+            width: 300px;
+            height: 100px;
+            font-size: 18px;
+        }
+
+        .game-type-button.selected {
+            background-color: #9933CC;
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .back-button {
+            width: 100px;
+            height: 50px;
+            margin: 10px auto;
+            display: block;
+        }
+
+        .table-container {
+            background-color: #FFFFCC;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+
+        .table-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .date-display {
+            background-color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #000;
+            font-weight: bold;
+        }
+
+        .page-info {
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .nav-button {
+            width: 40px;
+            height: 40px;
+            font-size: 18px;
+        }
+
+        .control-button {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .game-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .game-table th,
+        .game-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .game-table th {
+            background-color: #f0f0f0;
+        }
+
+        .name-input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .score-container {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .bonus-select {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .score-input {
+            flex: 1;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .check-button {
+            width: 60px;
+            height: 30px;
+            font-size: 12px;
+        }
+
+        .score-cell.positive {
+            background-color: #0066cc;
+            color: #ffff00;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+        }
+
+        .score-cell.negative {
+            background-color: #cc0000;
+            color: #ffffff;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+        }
+
+        .total-row {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .error-row {
+            background-color: #ffccdd;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .summary-table th,
+        .summary-table td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .summary-table .total-border {
+            border-top: 4px solid #000;
+        }
+
+        .summary-table .grand-total {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .history-list {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .history-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-date {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .history-type {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .delete-button {
+            background-color: #cc0000;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .game-type-button {
+                width: 200px;
+                height: 80px;
+                font-size: 16px;
+            }
+            
+            .main-button {
+                width: 150px;
+                height: 60px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- トップ画面 -->
+        <div id="top-screen" class="screen active">
+            <h1 class="title">麻雀用、収支計算</h1>
+            <div class="main-buttons">
+                <button class="button main-button" onclick="showScreen('new-screen')">新規</button>
+                <button class="button main-button" onclick="showScreen('history-screen')">過去</button>
+            </div>
+        </div>
+
+        <!-- 新規画面 -->
+        <div id="new-screen" class="screen">
+            <h1 class="title">新規ゲーム</h1>
+            <div class="game-type-buttons">
+                <button class="button game-type-button" id="three-player-btn" onclick="selectGameType(3)">三人打</button>
+                <button class="button game-type-button" id="four-player-btn" onclick="selectGameType(4)">四人打</button>
+            </div>
+            <button class="button back-button" onclick="showScreen('top-screen')">トップへ戻る</button>
+            
+            <div id="game-table-container" class="table-container" style="display: none;">
+                <div class="table-controls">
+                    <div class="date-display" id="current-date"></div>
+                    <span class="page-info" id="page-info">1ページ目</span>
+                    <button class="button nav-button" onclick="changePage(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="button nav-button" onclick="changePage(1)"><i class="fas fa-chevron-right"></i></button>
+                    <button class="button control-button" onclick="showSummary()">収支合計</button>
+                    <button class="button control-button" onclick="saveGame()">保存</button>
+                </div>
+                <table class="game-table" id="game-table"></table>
+            </div>
+        </div>
+
+        <!-- 収支合計画面 -->
+        <div id="summary-screen" class="screen">
+            <h1 class="title">収支合計</h1>
+            <div class="table-container">
+                <div class="table-controls">
+                    <button class="button nav-button" onclick="changePage(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <button class="button nav-button" onclick="changePage(1)"><i class="fas fa-chevron-right"></i></button>
+                    <button class="button control-button" onclick="showScreen('new-screen')">トップへ戻る</button>
+                </div>
+                <table class="summary-table" id="summary-table"></table>
+            </div>
+        </div>
+
+        <!-- 過去画面 -->
+        <div id="history-screen" class="screen">
+            <h1 class="title">過去の記録</h1>
+            <button class="button back-button" onclick="showScreen('top-screen')">トップへ戻る</button>
+            <div class="history-list" id="history-list">
+                <p style="text-align: center; color: #666;">保存された記録がありません</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentGameType = 0;
+        let currentPage = 1;
+        let gameData = {
+            playerCount: 0,
+            playerNames: [],
+            pages: [
+                {scores: [], bonuses: []},
+                {scores: [], bonuses: []},
+                {scores: [], bonuses: []},
+                {scores: [], bonuses: []}
+            ],
+            date: ''
+        };
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+            
+            if (screenId === 'history-screen') {
+                loadHistory();
+            }
+        }
+
+        function selectGameType(playerCount) {
+            currentGameType = playerCount;
+            gameData.playerCount = playerCount;
+            
+            // ボタンの選択状態更新
+            document.querySelectorAll('.game-type-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            if (playerCount === 3) {
+                document.getElementById('three-player-btn').classList.add('selected');
+            } else {
+                document.getElementById('four-player-btn').classList.add('selected');
+            }
+            
+            // 日付設定
+            const today = new Date();
+            gameData.date = today.toLocaleDateString('ja-JP');
+            document.getElementById('current-date').textContent = gameData.date;
+            
+            // テーブル表示
+            document.getElementById('game-table-container').style.display = 'block';
+            
+            // ゲームデータ初期化
+            initializeGameData();
+            updateTable();
+        }
+
+        function initializeGameData() {
+            gameData.playerNames = Array(gameData.playerCount).fill('');
+            gameData.pages.forEach(page => {
+                page.scores = Array(4).fill(null).map(() => Array(gameData.playerCount).fill(''));
+                page.bonuses = Array(4).fill(null).map(() => Array(gameData.playerCount).fill(''));
+            });
+            currentPage = 1;
+        }
+
+        function updateTable() {
+            const table = document.getElementById('game-table');
+            const playerCount = gameData.playerCount;
+            const pageData = gameData.pages[currentPage - 1];
+            
+            // テーブルクリア
+            table.innerHTML = '';
+            
+            // ヘッダー行（名前入力）
+            const nameRow = table.insertRow();
+            nameRow.insertCell().innerHTML = '<strong>お名前</strong>';
+            
+            for (let i = 0; i < playerCount; i++) {
+                const cell = nameRow.insertCell();
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'name-input';
+                input.value = gameData.playerNames[i] || '';
+                input.onchange = (e) => {
+                    gameData.playerNames[i] = e.target.value;
+                    // 他のページにも反映
+                    updateAllPageNames();
+                };
+                
+                // 1ページ目以外は自動入力
+                if (currentPage > 1) {
+                    input.readOnly = true;
+                }
+                
+                cell.appendChild(input);
+            }
+            
+            nameRow.insertCell(); // チェック列のためのスペース
+            
+            // スコア行
+            for (let round = 0; round < 4; round++) {
+                const row = table.insertRow();
+                row.insertCell().innerHTML = `<strong>${round + 1}半荘</strong>`;
+                
+                for (let player = 0; player < playerCount; player++) {
+                    const cell = row.insertCell();
+                    const container = document.createElement('div');
+                    container.className = 'score-container';
+                    
+                    // ボーナス選択
+                    const bonusSelect = document.createElement('select');
+                    bonusSelect.className = 'bonus-select';
+                    bonusSelect.innerHTML = '<option value="">-</option><option value="☆">☆</option><option value="×">×</option>';
+                    bonusSelect.value = pageData.bonuses[round][player];
+                    bonusSelect.onchange = (e) => {
+                        pageData.bonuses[round][player] = e.target.value;
+                        updateTotals();
+                    };
+                    
+                    // スコア入力
+                    const scoreInput = document.createElement('input');
+                    scoreInput.type = 'number';
+                    scoreInput.className = 'score-input';
+                    scoreInput.value = pageData.scores[round][player];
+                    scoreInput.onchange = (e) => {
+                        pageData.scores[round][player] = e.target.value;
+                        updateTotals();
+                    };
+                    
+                    container.appendChild(bonusSelect);
+                    container.appendChild(scoreInput);
+                    cell.appendChild(container);
+                }
+                
+                // チェックボタン
+                const checkCell = row.insertCell();
+                const checkBtn = document.createElement('button');
+                checkBtn.className = 'button check-button';
+                checkBtn.textContent = 'チェック';
+                checkBtn.onclick = () => checkRowTotal(round, row);
+                checkCell.appendChild(checkBtn);
+                
+                // 行にIDを設定
+                row.id = `round-${round}`;
+            }
+            
+            // 合計行
+            const totalRow = table.insertRow();
+            totalRow.className = 'total-row';
+            totalRow.insertCell().innerHTML = '<strong>点数合計</strong>';
+            
+            for (let player = 0; player < playerCount; player++) {
+                const cell = totalRow.insertCell();
+                cell.id = `total-${player}`;
+            }
+            totalRow.insertCell(); // チェック列のスペース
+            
+            updateTotals();
+            updatePageInfo();
+        }
+
+        function updateAllPageNames() {
+            // 他のページの名前欄も更新（表示されていないため、データのみ更新）
+        }
+
+        function updateTotals() {
+            const pageData = gameData.pages[currentPage - 1];
+            const playerCount = gameData.playerCount;
+            
+            for (let player = 0; player < playerCount; player++) {
+                let total = 0;
+                
+                for (let round = 0; round < 4; round++) {
+                    const score = parseInt(pageData.scores[round][player]) || 0;
+                    const bonus = pageData.bonuses[round][player];
+                    
+                    total += score;
+                    if (bonus === '☆') total += 100;
+                    if (bonus === '×') total -= 50;
+                }
+                
+                const totalCell = document.getElementById(`total-${player}`);
+                if (totalCell) {
+                    totalCell.textContent = total;
+                    totalCell.className = total > 0 ? 'score-cell positive' : total < 0 ? 'score-cell negative' : '';
+                }
+            }
+        }
+
+        function checkRowTotal(roundIndex, row) {
+            const pageData = gameData.pages[currentPage - 1];
+            let total = 0;
+            
+            for (let player = 0; player < gameData.playerCount; player++) {
+                total += parseInt(pageData.scores[roundIndex][player]) || 0;
+            }
+            
+            if (total === 0) {
+                alert('OK');
+                row.classList.remove('error-row');
+            } else {
+                alert('合ってないわよ！');
+                row.classList.add('error-row');
+            }
+        }
+
+        function changePage(direction) {
+            if (document.getElementById('summary-screen').classList.contains('active')) {
+                return; // 収支合計画面では何もしない
+            }
+            
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= 4) {
+                currentPage = newPage;
+                updateTable();
+            }
+        }
+
+        function updatePageInfo() {
+            document.getElementById('page-info').textContent = `${currentPage}ページ目`;
+        }
+
+        function showSummary() {
+            showScreen('summary-screen');
+            updateSummaryTable();
+        }
+
+        function updateSummaryTable() {
+            const table = document.getElementById('summary-table');
+            const playerCount = gameData.playerCount;
+            
+            table.innerHTML = '';
+            
+            // ヘッダー行
+            const nameRow = table.insertRow();
+            nameRow.insertCell().innerHTML = '<strong>お名前</strong>';
+            for (let i = 0; i < playerCount; i++) {
+                nameRow.insertCell().innerHTML = `<strong>${gameData.playerNames[i] || `プレイヤー${i+1}`}</strong>`;
+            }
+            
+            // 各ページの合計
+            const pageTotals = [];
+            for (let page = 0; page < 4; page++) {
+                const row = table.insertRow();
+                row.insertCell().innerHTML = `<strong>${page + 1}ページ目</strong>`;
+                
+                const pageTotal = [];
+                for (let player = 0; player < playerCount; player++) {
+                    let total = 0;
+                    
+                    for (let round = 0; round < 4; round++) {
+                        const score = parseInt(gameData.pages[page].scores[round][player]) || 0;
+                        const bonus = gameData.pages[page].bonuses[round][player];
+                        
+                        total += score;
+                        if (bonus === '☆') total += 100;
+                        if (bonus === '×') total -= 50;
+                    }
+                    
+                    pageTotal.push(total);
+                    const cell = row.insertCell();
+                    cell.textContent = total;
+                    cell.className = total > 0 ? 'score-cell positive' : total < 0 ? 'score-cell negative' : '';
+                }
+                pageTotals.push(pageTotal);
+            }
+            
+            // 総合計行
+            const grandTotalRow = table.insertRow();
+            grandTotalRow.className = 'total-border';
+            grandTotalRow.insertCell().innerHTML = '<strong class="grand-total">総合計収支</strong>';
+            
+            for (let player = 0; player < playerCount; player++) {
+                let grandTotal = 0;
+                for (let page = 0; page < 4; page++) {
+                    grandTotal += pageTotals[page][player];
+                }
+                
+                const cell = grandTotalRow.insertCell();
+                cell.innerHTML = `<strong class="grand-total">${grandTotal}</strong>`;
+                cell.className = grandTotal > 0 ? 'score-cell positive grand-total' : grandTotal < 0 ? 'score-cell negative grand-total' : 'grand-total';
+            }
+        }
+
+        function saveGame() {
+            if (gameData.playerNames.every(name => name === '')) {
+                alert('プレイヤー名を入力してください');
+                return;
+            }
+            
+            const savedGames = JSON.parse(localStorage.getItem('mahjongGames') || '[]');
+            const gameRecord = {
+                id: Date.now(),
+                date: gameData.date,
+                playerCount: gameData.playerCount,
+                data: JSON.parse(JSON.stringify(gameData))
+            };
+            
+            savedGames.push(gameRecord);
+            localStorage.setItem('mahjongGames', JSON.stringify(savedGames));
+            
+            alert('保存しました');
+        }
+
+        function loadHistory() {
+            const savedGames = JSON.parse(localStorage.getItem('mahjongGames') || '[]');
+            const historyList = document.getElementById('history-list');
+            
+            if (savedGames.length === 0) {
+                historyList.innerHTML = '<p style="text-align: center; color: #666;">保存された記録がありません</p>';
+                return;
+            }
+            
+            historyList.innerHTML = '';
+            
+            savedGames.reverse().forEach(game => {
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <div>
+                        <div class="history-date">${game.date}</div>
+                        <div class="history-type">${game.playerCount === 3 ? '三人打' : '四人打'} - ${game.data.playerNames.filter(n => n).join(', ')}</div>
+                    </div>
+                    <button class="delete-button" onclick="deleteGame(${game.id})">削除</button>
+                `;
+                
+                item.onclick = (e) => {
+                    if (e.target.classList.contains('delete-button')) return;
+                    loadGame(game);
+                };
+                
+                historyList.appendChild(item);
+            });
+        }
+
+        function deleteGame(gameId) {
+            if (confirm('この記録を削除しますか？')) {
+                let savedGames = JSON.parse(localStorage.getItem('mahjongGames') || '[]');
+                savedGames = savedGames.filter(game => game.id !== gameId);
+                localStorage.setItem('mahjongGames', JSON.stringify(savedGames));
+                loadHistory();
+            }
+        }
+
+        function loadGame(game) {
+            gameData = JSON.parse(JSON.stringify(game.data));
+            currentGameType = gameData.playerCount;
+            currentPage = 1;
+            
+            // 新規画面に戻る
+            showScreen('new-screen');
+            
+            // ボタン選択状態更新
+            document.querySelectorAll('.game-type-button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            if (gameData.playerCount === 3) {
+                document.getElementById('three-player-btn').classList.add('selected');
+            } else {
+                document.getElementById('four-player-btn').classList.add('selected');
+            }
+            
+            // 日付表示
+            document.getElementById('current-date').textContent = gameData.date;
+            
+            // テーブル表示
+            document.getElementById('game-table-container').style.display = 'block';
+            updateTable();
+        }
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            showScreen('top-screen');
+        });
+    </script>
+</body>
+</html>
