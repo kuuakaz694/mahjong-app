@@ -181,7 +181,7 @@
         }
 
         .bonus-select {
-            width: 25px;
+            width: 50px;
             height: 25px;
             border: 1px solid #ccc;
             border-radius: 3px;
@@ -319,7 +319,7 @@
     <div class="container">
         <!-- トップ画面 -->
         <div id="top-screen" class="screen active">
-            <h1 class="title">麻雀用、収支計算</h1>
+            <h1 class="title">激闘!! 麻雀SCORE</h1>
             <div class="main-buttons">
                 <button class="button main-button" onclick="showScreen('new-screen')">新規</button>
                 <button class="button main-button" onclick="showScreen('history-screen')">過去</button>
@@ -377,12 +377,8 @@
         let gameData = {
             playerCount: 0,
             playerNames: [],
-            pages: [
-                {scores: [], bonuses: []},
-                {scores: [], bonuses: []},
-                {scores: [], bonuses: []},
-                {scores: [], bonuses: []}
-            ],
+            pages: Array(10).fill(null).map(() => ({scores: [], bonuses: []})),
+
             date: ''
         };
 
@@ -439,12 +435,14 @@
 
         function initializeGameData() {
             gameData.playerNames = Array(gameData.playerCount).fill('');
-            gameData.pages.forEach(page => {
-                page.scores = Array(4).fill(null).map(() => Array(gameData.playerCount).fill(''));
-                page.bonuses = Array(4).fill(null).map(() => Array(gameData.playerCount).fill(''));
-            });
+            // 10ページ分のデータを初期化
+            gameData.pages = Array(10).fill(null).map(() => ({
+                scores: Array(4).fill(null).map(() => Array(gameData.playerCount).fill('')),
+                bonuses: Array(4).fill(null).map(() => Array(gameData.playerCount).fill(''))
+            }));
             currentPage = 1;
         }
+
 
         function updateTable() {
             const table = document.getElementById('game-table');
@@ -498,6 +496,7 @@
                     bonusSelect.onchange = (e) => {
                         pageData.bonuses[round][player] = e.target.value;
                         updateTotals();
+
                     };
                     
                     // スコア入力
@@ -508,6 +507,7 @@
                     scoreInput.onchange = (e) => {
                         pageData.scores[round][player] = e.target.value;
                         updateTotals();
+                        updatePageInfo(); // この行を追加
                     };
                     
                     container.appendChild(bonusSelect);
@@ -548,6 +548,8 @@
                 cell.id = `pelica-${player}`;
             }
             pelicaRow.insertCell(); // チェック列のスペース
+
+
         }
 
         function updateTotals() {
@@ -578,7 +580,7 @@
                 const pelicaCell = document.getElementById(`pelica-${player}`);
                 if (pelicaCell) {
                     // ペリカは合計の×0.3、端数は切り捨て（必要なら Math.round に変更）
-                    const pelica = Math.floor(totals[player] * 0.3);
+                    const pelica = Math.floor(totals[player] * 30);
                     pelicaCell.textContent = pelica;
                     pelicaCell.className = pelica > 0 ? 'score-cell positive' : pelica < 0 ? 'score-cell negative' : '';
                 }
@@ -605,21 +607,36 @@
             }
         }
 
-        function changePage(direction) {
-            if (document.getElementById('summary-screen').classList.contains('active')) {
-                return; // 収支合計画面では何もしない
-            }
-            
-            const newPage = currentPage + direction;
-            if (newPage >= 1 && newPage <= 4) {
-                currentPage = newPage;
-                updateTable();
-            }
-        }
-
         function updatePageInfo() {
             document.getElementById('page-info').textContent = `${currentPage}ページ目`;
         }
+
+        function updateAllPageNames() {
+    // 他のページの名前入力フィールドも更新（必要に応じて）
+    // この機能は現在のページ表示では特に必要ありませんが、
+    // 将来的に名前が他のページでも表示される場合に使用
+        }
+
+
+
+
+
+
+
+        function changePage(direction) {
+            if (document.getElementById('summary-screen').classList.contains('active')) {
+                return;
+            }
+            
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= 10) {  // 10ページまで対応
+                currentPage = newPage;
+                updateTable();
+                updatePageInfo(); // ページ情報を更新
+            }
+        }
+
+
 
         function showSummary() {
             showScreen('summary-screen');
@@ -641,7 +658,7 @@
             
             // 各ページの合計
             const pageTotals = [];
-            for (let page = 0; page < 4; page++) {
+            for (let page = 0; page < 10; page++) {  // 10ページ
                 const row = table.insertRow();
                 row.insertCell().innerHTML = `<strong>${page + 1}ページ目</strong>`;
                 
@@ -649,7 +666,7 @@
                 for (let player = 0; player < playerCount; player++) {
                     let total = 0;
                     
-                    for (let round = 0; round < 4; round++) {
+                    for (let round = 0; round < 4; round++) {  // ←ここを4に修正（各ページは4ラウンド）
                         const score = parseInt(gameData.pages[page].scores[round][player]) || 0;
                         const bonus = gameData.pages[page].bonuses[round][player];
                         
@@ -673,7 +690,7 @@
             
             for (let player = 0; player < playerCount; player++) {
                 let grandTotal = 0;
-                for (let page = 0; page < 4; page++) {
+                for (let page = 0; page < 10; page++) {  // 10ページ
                     grandTotal += pageTotals[page][player];
                 }
                 
@@ -682,6 +699,9 @@
                 cell.className = grandTotal > 0 ? 'score-cell positive grand-total' : grandTotal < 0 ? 'score-cell negative grand-total' : 'grand-total';
             }
         }
+
+
+
 
         function saveGame() {
             if (gameData.playerNames.every(name => name === '')) {
