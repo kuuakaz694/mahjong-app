@@ -39,7 +39,7 @@
             font-size: 28px;
             font-weight: bold;
             margin-bottom: 30px;
-            color: #333;
+            color: #f4ffc4c8;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
@@ -295,24 +295,329 @@
             font-size: 12px;
         }
 
-        @media (max-width: 900px) {
-            .container {
-                min-width: auto;
-                width: 100%;
-            }
-            
-            .game-type-button {
-                width: 200px;
-                height: 80px;
-                font-size: 16px;
-            }
-            
-            .main-button {
-                width: 150px;
-                height: 60px;
-                font-size: 18px;
-            }
-        }
+/* タブレット・大きめのスマホ対応 */
+@media (max-width: 900px) {
+    .container {
+        min-width: auto;
+        width: 100%;
+        padding: 10px;
+    }
+    
+    body {
+        padding: 10px;
+    }
+    
+    .game-type-button {
+        width: 200px;
+        height: 80px;
+        font-size: 16px;
+    }
+    
+    .main-button {
+        width: 150px;
+        height: 60px;
+        font-size: 18px;
+    }
+    
+    .title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+}
+
+/* スマホ対応（縦向き） */
+@media (max-width: 600px) {
+    body {
+        padding: 5px;
+        background-color: #336633;
+    }
+    
+    .container {
+        max-width: 100%;
+        min-width: auto;
+        width: 100%;
+        padding: 5px;
+    }
+    
+    .title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    
+    /* ボタンサイズ調整 */
+    .main-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+    
+    .main-button {
+        width: 200px;
+        height: 50px;
+        font-size: 16px;
+    }
+    
+    .game-type-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .game-type-button {
+        width: 250px;
+        height: 60px;
+        font-size: 16px;
+    }
+    
+    .back-button {
+        width: 120px;
+        height: 45px;
+        font-size: 14px;
+    }
+    
+    /* テーブルコンテナ */
+    .table-container {
+        padding: 10px;
+        margin: 10px 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* テーブル制御部分 */
+    .table-controls {
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 15px;
+        justify-content: center;
+    }
+    
+    .date-display {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+    
+    .date-display input {
+        font-size: 12px;
+        width: 120px;
+    }
+    
+    .page-info {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    
+    .nav-button {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .control-button {
+        padding: 6px 12px;
+        font-size: 12px;
+        height: 35px;
+    }
+    
+    /* テーブル本体 */
+    .game-table {
+        min-width: 480px;
+        font-size: 12px;
+    }
+    
+    .game-table th,
+    .game-table td {
+        padding: 4px;
+        min-width: 60px;
+    }
+    
+    .game-table th:first-child,
+    .game-table td:first-child {
+        min-width: 80px;
+        font-size: 11px;
+    }
+    
+    /* 入力フィールド */
+    .name-input {
+        font-size: 12px;
+        min-height: 30px;
+        padding: 2px;
+    }
+    
+    .score-container {
+        flex-direction: column;
+        gap: 2px;
+        align-items: stretch;
+    }
+    
+    .bonus-select {
+        width: 100%;
+        height: 28px;
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+    
+    .score-input {
+        width: 100%;
+        height: 32px;
+        font-size: 12px;
+        padding: 2px;
+        -webkit-appearance: none;
+        border-radius: 3px;
+    }
+    
+    .check-button {
+        width: 50px;
+        height: 28px;
+        font-size: 10px;
+        padding: 2px;
+    }
+    
+    /* 合計・ペリカ行 */
+    .total-row td,
+    .pelica-row td {
+        font-size: 11px;
+        font-weight: bold;
+    }
+    
+    /* 収支合計テーブル */
+    .summary-table {
+        min-width: 400px;
+        font-size: 12px;
+    }
+    
+    .summary-table th,
+    .summary-table td {
+        padding: 6px 4px;
+    }
+    
+    .summary-table .grand-total {
+        font-size: 14px;
+    }
+    
+    /* 履歴画面 */
+    .history-list {
+        padding: 10px;
+    }
+    
+    .history-item {
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .history-date {
+        font-size: 14px;
+    }
+    
+    .history-type {
+        font-size: 12px;
+    }
+    
+    .delete-button {
+        align-self: flex-end;
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+}
+
+/* 小さなスマホ対応 */
+@media (max-width: 400px) {
+    .title {
+        font-size: 18px;
+    }
+    
+    .main-button {
+        width: 160px;
+        height: 45px;
+        font-size: 14px;
+    }
+    
+    .game-type-button {
+        width: 200px;
+        height: 50px;
+        font-size: 14px;
+    }
+    
+    .game-table {
+        min-width: 380px;
+        font-size: 11px;
+    }
+    
+    .game-table th,
+    .game-table td {
+        padding: 3px;
+        min-width: 50px;
+    }
+    
+    .score-input {
+        height: 28px;
+        font-size: 11px;
+    }
+    
+    .bonus-select {
+        height: 24px;
+        font-size: 10px;
+    }
+    
+    .check-button {
+        width: 45px;
+        height: 24px;
+        font-size: 9px;
+    }
+}
+
+/* 横向きスマホ対応 */
+@media (max-width: 900px) and (orientation: landscape) {
+    .title {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+    
+    .main-buttons {
+        margin-top: 20px;
+    }
+    
+    .game-type-buttons {
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .game-type-button {
+        width: 180px;
+        height: 50px;
+    }
+    
+    .table-container {
+        padding: 15px;
+    }
+    
+    .game-table {
+        font-size: 13px;
+    }
+}
+
+/* タッチ操作の改善 */
+@media (hover: none) and (pointer: coarse) {
+    .button:hover {
+        transform: none;
+    }
+    
+    .button:active {
+        transform: scale(0.95);
+    }
+    
+    .history-item:hover {
+        background-color: transparent;
+    }
+    
+    .history-item:active {
+        background-color: #f5f5f5;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -794,6 +1099,23 @@
         document.addEventListener('DOMContentLoaded', function() {
             showScreen('top-screen');
         });
+                // スマホ対応: 数値入力時のキーボード最適化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 数値入力フィールドにpattern属性を追加
+            document.addEventListener('input', function(e) {
+                if (e.target.classList.contains('score-input')) {
+                    e.target.setAttribute('pattern', '[0-9]*');
+                    e.target.setAttribute('inputmode', 'numeric');
+                }
+            });
+            
+            // テーブルの横スクロールをスムーズに
+            const tableContainers = document.querySelectorAll('.table-container');
+            tableContainers.forEach(container => {
+                container.style.scrollBehavior = 'smooth';
+            });
+        });
+
     </script>
 </body>
 </html>
